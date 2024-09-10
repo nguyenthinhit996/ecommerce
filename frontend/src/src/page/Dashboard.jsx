@@ -1,10 +1,25 @@
 import React from "react";
+import Sidebar from "./layout/LeftSideBar";
+import { Box, Stack, Typography } from "@mui/material";
+import Header from "./layout/Header";
+import AdminProfile from "../../components/AdminProfile";
 
 function Home() {
   return (
-    <div>
-      <h1>Welcome to the Home Page!</h1>
-    </div>
+    <Box sx={{ display: "flex", width: "100%" }}>
+      <Box sx={{ padding: "2rem" }}>
+        <Sidebar />
+      </Box>
+
+      <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+        <Box>
+          <Header></Header>
+        </Box>
+        <Box>
+          <AdminProfile />
+        </Box>
+      </Box>
+    </Box>
   );
 }
 

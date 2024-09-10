@@ -8,6 +8,8 @@ const router = express.Router();
  *   post:
  *     summary: Create a new product
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -34,6 +36,8 @@ const router = express.Router();
  *               $ref: '#/components/schemas/Product'
  *       400:
  *         description: Bad request
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.post("/", async (req, res) => {
   try {
@@ -50,6 +54,8 @@ router.post("/", async (req, res) => {
  *   get:
  *     summary: Get all products
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of products
@@ -61,6 +67,8 @@ router.post("/", async (req, res) => {
  *                 $ref: '#/components/schemas/Product'
  *       500:
  *         description: Server error
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.get("/", async (req, res) => {
   try {
@@ -77,6 +85,8 @@ router.get("/", async (req, res) => {
  *   get:
  *     summary: Get a product by ID
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -95,6 +105,8 @@ router.get("/", async (req, res) => {
  *         description: Product not found
  *       500:
  *         description: Server error
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.get("/:id", async (req, res) => {
   try {
@@ -112,6 +124,8 @@ router.get("/:id", async (req, res) => {
  *   put:
  *     summary: Update a product by ID
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -147,6 +161,8 @@ router.get("/:id", async (req, res) => {
  *         description: Product not found
  *       400:
  *         description: Bad request
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.put("/:id", async (req, res) => {
   try {
@@ -166,6 +182,8 @@ router.put("/:id", async (req, res) => {
  *   delete:
  *     summary: Delete a product by ID
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -180,6 +198,8 @@ router.put("/:id", async (req, res) => {
  *         description: Product not found
  *       500:
  *         description: Server error
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.delete("/:id", async (req, res) => {
   try {

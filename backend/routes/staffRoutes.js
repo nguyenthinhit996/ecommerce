@@ -8,6 +8,8 @@ const router = express.Router();
  *   post:
  *     summary: Create a new staff member
  *     tags: [Staff]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -59,6 +61,8 @@ const router = express.Router();
  *         description: Staff created successfully
  *       400:
  *         description: Bad request
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.post("/", async (req, res) => {
   try {
@@ -75,6 +79,8 @@ router.post("/", async (req, res) => {
  *   get:
  *     summary: Get all staff members
  *     tags: [Staff]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of staff members
@@ -86,6 +92,8 @@ router.post("/", async (req, res) => {
  *                 $ref: '#/components/schemas/Staff'
  *       500:
  *         description: Server error
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.get("/", async (req, res) => {
   try {
@@ -102,6 +110,8 @@ router.get("/", async (req, res) => {
  *   get:
  *     summary: Get a staff member by ID
  *     tags: [Staff]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -120,6 +130,8 @@ router.get("/", async (req, res) => {
  *         description: Staff not found
  *       500:
  *         description: Server error
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.get("/:id", async (req, res) => {
   try {
@@ -137,6 +149,8 @@ router.get("/:id", async (req, res) => {
  *   put:
  *     summary: Update a staff member by ID
  *     tags: [Staff]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -193,14 +207,12 @@ router.get("/:id", async (req, res) => {
  *     responses:
  *       200:
  *         description: Staff updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Staff'
  *       404:
  *         description: Staff not found
  *       400:
  *         description: Bad request
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.put("/:id", async (req, res) => {
   try {
@@ -220,6 +232,8 @@ router.put("/:id", async (req, res) => {
  *   delete:
  *     summary: Delete a staff member by ID
  *     tags: [Staff]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -234,6 +248,8 @@ router.put("/:id", async (req, res) => {
  *         description: Staff not found
  *       500:
  *         description: Server error
+ *       401:
+ *         description: Unauthorized - Missing or invalid token
  */
 router.delete("/:id", async (req, res) => {
   try {

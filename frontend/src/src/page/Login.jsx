@@ -189,11 +189,6 @@ function Login() {
                 </Link>
               </Grid>
             </Grid>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-              sx={{ mt: 1 }}
-            />
             <Button
               type="submit"
               fullWidth
@@ -204,7 +199,7 @@ function Login() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/sign-up" variant="body2">
                   {"Don't have an account? Sign up here"}
                 </Link>
               </Grid>

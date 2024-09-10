@@ -19,7 +19,7 @@ const Staff = sequelize.define(
     },
     PHONE: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     COUNTRY: {
       type: DataTypes.STRING,
@@ -63,7 +63,7 @@ const Staff = sequelize.define(
     },
     ID_DEPARTMENT_INVENTORY: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     USER_NAME: {
       type: DataTypes.STRING,

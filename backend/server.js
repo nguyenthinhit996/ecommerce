@@ -8,10 +8,26 @@ const { generateAccessToken, generateRefreshToken } = require("./utils/jwt");
 const Staff = require("./models/Staff");
 const authenticateToken = require("./middlewares/auth");
 const { swaggerUi, swaggerDocs } = require("./utils/swagger");
+const cors = require("cors"); // Import CORS
+const morgan = require("morgan");
+const logger = require("./utils/logger");
 
 dotenv.config();
 
 const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
+
+// Use morgan to log all requests to the console
+// Use morgan to log all HTTP requests to the console
+app.use(
+  morgan("combined", {
+    stream: {
+      write: (message) => logger.info(message.trim()), // Pipe morgan logs to winston
+    },
+  })
+);
 
 app.use(express.json());
 const router = express.Router();
@@ -55,11 +71,13 @@ app.use((req, res, next) => {
  *             properties:
  *               USER_NAME:
  *                 type: string
- *               PASSWORK:
+ *               PASSWORD:
  *                 type: string
  *               MAIL:
  *                 type: string
  *               PHONE:
+ *                 type: string
+ *               NAME:
  *                 type: string
  *     responses:
  *       201:
@@ -69,8 +87,8 @@ app.use((req, res, next) => {
  */
 router.post("/register", async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.PASSWORK, 10);
-    const staff = await Staff.create({ ...req.body, PASSWORK: hashedPassword });
+    const hashedPassword = await bcrypt.hash(req.body.PASSWORD, 10);
+    const staff = await Staff.create({ ...req.body, PASSWORD: hashedPassword });
     res.status(201).json(staff);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -90,7 +108,7 @@ router.post("/register", async (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               username:
+ *               email:
  *                 type: string
  *               password:
  *                 type: string
@@ -118,7 +136,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const staff = await Staff.findOne({
-      where: { USER_NAME: req.body.username },
+      where: { MAIL: req.body.email },
     });
     if (!staff) return res.status(404).json({ message: "User not found" });
 
